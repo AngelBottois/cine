@@ -1,0 +1,9 @@
+@tailwind base;
+
+@tailwind components;
+h2{
+    font-size: 30px;
+    font-weight: 700;
+}
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
