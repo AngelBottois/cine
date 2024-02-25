@@ -13,7 +13,7 @@
     <main class="container max-w-screen-2xl h-[665px] pt-[47px] pb-[51px] px-[500px] bg-fondoImg">
         <div class="container h-[592px] px-[100px] pt-[30px] pb-[50px] bg-blur backdrop-blur-[10px] rounded-[15px]">
             <div class="">
-                <a href="index.php?ctl=listadoA" class="block w-[25px]"><img src="./utiles/img/front/flecha.svg" alt="flecha"></a>
+                <a href="index.php?ctl=listadoS" class="block w-[25px]"><img src="./utiles/img/front/flecha.svg" alt="flecha"></a>
             </div>
             <h2 class="pb-[12px]">Añadir sesión</h2>
             <form action="index.php?ctl=addSesion" method="post">
@@ -33,9 +33,10 @@
                 <input list="peliculas" id="pelicula" name="pelicula" placeholder="Introduce una pelicula" class="w-[100%] mb-[14px] rounded-[5px] pl-[21px] py-[16px] bg-form"/>
                     <datalist id="peliculas">
                         <?php foreach($_SESSION['admin']['peliculas'] as $pelicula){ ?>
-                            <option value="<?= $pelicula['nombre'] ?>"><?= $pelicula['id'] ?></option>
+                            <option value="<?= $pelicula['id'] ?>"><?= $pelicula['nombre'] ?></option>
                         <?php } ?>
                     </datalist>
+                <p class="text-center"><?= $_SESSION['error'] ?></p>
                 <input type="submit" value="Confirmar" class="block w-[100%] bg-rosa mb-[7px] px-[80px] py-[10px] rounded-[7px]">
             </form>
         </div>

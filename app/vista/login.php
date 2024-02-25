@@ -20,8 +20,8 @@
                 <input type="submit" value="Entrar" class="block w-[100%] bg-rosa mb-[7px] px-[80px] py-[10px] rounded-[7px]">
             </form>
             <div class="container grid grid-cols-1 justify-items-end">
-                <p><a href="index.php?ctl=recuperar-pass">¿Has olvidado la contraseña?</a></p>
-                <p><a href="register">¿No tienes cuenta? Registrate!</a></p>
+                <p class="text-[20px]"><a href="index.php?ctl=recuperar-pass">¿Has olvidado la contraseña?</a></p>
+                <p class="text-[20px]"><a href="register">¿No tienes cuenta? Registrate!</a></p>
             </div>
         </div>
     </main>

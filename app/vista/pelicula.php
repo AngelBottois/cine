@@ -15,20 +15,24 @@
                     <a href="buscador" class="block w-[25px]"><img src="./utiles/img/front/flecha.svg" alt="flecha"></a>
                 </div>
                 <div>
-                    <h1 class="text-[30px]"><?= $_SESSION['admin']['pelicula']['nombre'] ?></h1>
+                    <h1 class="text-[60px] mb-[30px]"><?= $_SESSION['admin']['pelicula']['nombre'] ?></h1>
                     <ul class="container flex gap-[30px] text-[12px] mb-[28px]">
                         <li class="text-gray"><?= $_SESSION['admin']['pelicula']['clasificacion_edad'] ?></li>
                         <li class="text-gray"><?= $_SESSION['admin']['pelicula']['genero_id'] ?></li>
                     </ul>
-                    <p class="mb-[16px]"><?= $_SESSION['admin']['pelicula']['argumento'] ?></p>
+                    <p class="mb-[16px] w-[320px]"><?= $_SESSION['admin']['pelicula']['argumento'] ?></p>
                     <p class="mb-[16px]">Director: </p>
                     <p>Actores: </p>
                 </div>
-                <form action="index.php?ctl=sesion&s=<?= $_SESSION['admin']['pelicula']['id'] ?>" method="post">
+                <?php 
+                $act = '';
+                isset($_SESSION['loggeado']) ? $act='ctl=sesion&s='.$_SESSION['admin']['pelicula']['id'] : $act='ctl=login' ; 
+                ?>
+                <form action="index.php?<?= $act ?>" method="post">
                     <div class="w-[400px]">
                         <select name="sesiones" id="sesiones" class="w-[100%] mb-[17px] rounded-[5px] pl-[21px] py-[16px] bg-gray ">
                             <?php foreach($_SESSION['admin']['pelicula']['sesiones'] as $sesion){ ?>
-                                <option value="<?=$sesion['id']?>" class="text-black"><?= $sesion['fecha'] ?></option>
+                                <option value="<?= $sesion['fecha'] ?>" class="text-black"><?= $sesion['fecha'] ?></option>
                             <?php } ?>
                         </select>
                     </div>

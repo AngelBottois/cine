@@ -5,27 +5,37 @@ class formulariocontroller{
     public static function insertar(){
         $insertado = false;
         if(isset($_REQUEST['nombre']) && isset($_REQUEST['apellidos'])){
-            $nombre = self::estandarizar($_REQUEST['nombre']);
-            $apellidos = self::estandarizar($_REQUEST['apellidos']);
-            $_SESSION['resguardo']['nombre'] = $nombre;
-            $_SESSION['resguardo']['apellidos'] = $apellidos;
-            $listaNIFS[] = Usuario::obtenerNIFS();
-            $listaEmails[] = Usuario::obtenerEmails();
-            if(self::comprobarEmail($_REQUEST['mail']) && !in_array($_REQUEST['mail'],$listaEmails)){
-                $_SESSION['resguardo']['email'] = $_REQUEST['mail'];
-                if(self::comprobarNIF($_REQUEST['nif']) && !in_array($_REQUEST['nif'],$listaNIFS)){
-                    $_SESSION['resguardo']['nif'] = $_REQUEST['nif'];
-                    if(isset($_REQUEST['terminos']) && $_REQUEST['terminos']=='on'){
-                        $pass = password_hash($_REQUEST['pass'], PASSWORD_DEFAULT);
-                        ControllerCorreo::enviarCorreo($_REQUEST['mail']);
-                        Usuario::insertarUsuario($nombre,$apellidos,$_REQUEST['mail'],$_REQUEST['nif'],$pass);
-                        $insertado = true;
+            if($_REQUEST['nombre']!='' && $_REQUEST['apellidos']!=''){
+                $nombre = self::estandarizar($_REQUEST['nombre']);
+                $apellidos = self::estandarizar($_REQUEST['apellidos']);
+                $_SESSION['resguardo']['nombre'] = $nombre;
+                $_SESSION['resguardo']['apellidos'] = $apellidos;
+                $listaNIFS[] = Usuario::obtenerNIFS();
+                $listaEmails[] = Usuario::obtenerEmails();
+                if(self::comprobarEmail($_REQUEST['mail']) && !in_array($_REQUEST['mail'],$listaEmails)){
+                    $_SESSION['resguardo']['email'] = $_REQUEST['mail'];
+                    if(self::comprobarNIF($_REQUEST['nif']) && !in_array($_REQUEST['nif'],$listaNIFS)){
+                        $_SESSION['resguardo']['nif'] = $_REQUEST['nif'];
+                        if(isset($_REQUEST['terminos']) && $_REQUEST['terminos']=='on'){
+                            if($_REQUEST['pass']!=""){
+                                $pass = password_hash($_REQUEST['pass'], PASSWORD_DEFAULT);
+                                ControllerCorreo::enviarCorreo($_REQUEST['mail']);
+                                Usuario::insertarUsuario($nombre,$apellidos,$_REQUEST['mail'],$_REQUEST['nif'],$pass);
+                                $insertado = true;
+                            }else{
+                                $_SESSION['error'] = "La contraseña no puede estar vacia";
+                            }
+                        }else{
+                            $_SESSION['error'] = "Debes aceptar las políticas de privacidad";
+                        }
+                    }else{
+                        $_SESSION['error'] = "NIF no valido o ya existente";
                     }
                 }else{
-                    $_SESSION['resguardo']['nif'] = "NIF no valido o ya existente";
+                    $_SESSION['error'] = "Email no valido o ya existente";
                 }
             }else{
-                $_SESSION['resguardo']['email'] = "Email no valido o ya existente";
+                $_SESSION['error'] = "Nombre o apellidos no validos";
             }
         }
         return $insertado;

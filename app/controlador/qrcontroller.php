@@ -1,67 +1,62 @@
 <?php
-require_once 'qr/barcode.php';
+//Debéis crear un método en el controlador que se encargue de generar el código QR
+// Generar un código QR con PHP
+//Para instalar el paquete endroid/qr-code
+// composer require endroid/qr-code
+// Información sobre el paquete endroid/qr-code
+// https://packagist.org/packages/endroid/qr-code
 
-class QrController
-{
-    public static function generarQr($datos = null)
-    {
-        $datos = "sesion=4-butaca=17-usuario=pepito-pelicula=terror";
+require 'vendor/autoload.php';
 
-        //Construyendo ruta genérica para cualquier servidor
-        $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
-        $protocolo = $isSecure ? 'https://' : 'http://';
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
 
-        $host = $_SERVER['HTTP_HOST']; //obtiene el nombre del servidor o la IP del servidor
-        $port = $_SERVER['SERVER_PORT']; //obtiene el puerto del servidor       
-        $rutaAplicacion = dirname($_SERVER['PHP_SELF']); //ruta de la aplicación-cada uno la vuestra según la ruta de vuestro proyecto
+// Generar el contenido del QR
+class qrController{
+
+    public static function generar($num, $fecha, $peli, $hora){
+        $contenido = $num.'-'.$fecha.'-'.$peli.'-'.$hora;
+        // Crear el objeto QR
+        $qrCode = QrCode::create($contenido)
+            ->setSize(100) // Tamaño en píxeles
+            ->setMargin(10);
+
+        // Generar un nombre único para la imagen
+        $nombre_imagen = 'QR' . uniqid() . '.png';
+
+        // Ruta de la carpeta donde se almacenará la imagen
+        $ruta_carpeta = 'utiles/img/back/qr/';
+
+        // Asegurarse de que la carpeta existe
+        if (!file_exists($ruta_carpeta)) {
+            mkdir($ruta_carpeta, 0777, true);
+        }
+
+        // Ruta completa del archivo
+        $ruta_archivo = $ruta_carpeta . $nombre_imagen;
+
+        // Esta clase se utiliza para generar una imagen PNG de un código QR.
+        $writer = new PngWriter();
+
+        // Generar el código QR y guardar la imagen en un archivo
+        $result = $writer->write($qrCode);
+        file_put_contents($ruta_archivo, $result->getString());
+
+        // echo "<br><h2>El código QR se ha guardado en carpeta:</h2> " . $ruta_archivo;
+        // Mostrar la imagen PNG
+        // echo '<br><img src="' . $ruta_archivo . '" alt="Código QR">';
+        // Después debes guardar la ruta de la imagen en la base de datos
+        // En la tabla compra_butacasC
+        return $ruta_archivo;
+    }
+
+    public static function guardar() {
         
-        //ruta al archivo donde está la librería barcode.php
-        $archivo = "/qr/barcode.php?f=svg&s=qr-l&d=" . urlencode($datos) . "&sf=8&md=1";
-
-        if (($isSecure && $port != 443) || (!$isSecure && $port != 80)) {
-            $url = $protocolo . $host . ":" . $port . $rutaAplicacion . $archivo;
-        } else {
-            $url = $protocolo . $host . $rutaAplicacion . $archivo;
+        
+        if(isset($_POST['butaca'])){
+            foreach ($_POST['butaca'] as $butaca) {
+               $_SESSION['qrs'][] =  self::generar($butaca, $_SESSION['sesion'][0]['fecha'], $_SESSION['admin']['pelicula']['nombre'], $_SESSION['sesion'][0]['hora']);
+            }
         }
-
-        //Visualizar la url generada
-        //echo $url;
-        //http://localhost/xclase/venancio/cargaclases/qr/barcode.php?f=svg&s=qr-l&d=sesion%3D4-butaca%3D17-usuario%3Dpepito-pelicula%3Dterror&sf=8&md=1
-        //exit;
-
-        # Generar un nombre de archivo aleatorio que comienza con "QR"
-        $nombreArchivo = "QR" . bin2hex(random_bytes(5)) . ".svg";
-        # Definir la ruta de la carpeta donde se guardará el archivo
-        $rutaCarpeta = Ruta::QR_PATH;
-
-        # Crear la carpeta si no existe
-        if (!file_exists($rutaCarpeta)) {
-            mkdir($rutaCarpeta, 0777, true);
-        }
-        $rutaArchivo = $rutaCarpeta . $nombreArchivo;
-
-        # Obtener el contenido del archivo desde la URL
-        $contenido = file_get_contents($url);
-
-        # Guardar el contenido en el archivo en una carpeta del servidor
-        file_put_contents($rutaArchivo, $contenido);
-
-
-        // # Forzar la descarga del archivo,
-        //  no puede usarse con la función header() si se ha enviado información 
-        //  header('Content-Type: application/octet-stream');
-        //  header("Content-Transfer-Encoding: Binary");
-        //  header("Content-disposition: attachment; filename=$nombreArchivo");
-
-        # Leer el archivo y sacarlo al navegador y permitir a usuario descargarlo
-        readfile($rutaArchivo);
-
-        # Otra opción: para mostrar el archivo SVG en el navegador
-       
-        echo '<img src="' . Ruta::QR_PATH . $nombreArchivo . '" />';
-
-        # Proporcionar un enlace de descarga 
-        echo '<a href="' . $rutaArchivo . '" download="' . $nombreArchivo . '">Descargar QR</a>';
-     
     }
 }

@@ -16,7 +16,7 @@
                 <a href="index.php?ctl=login" class="block w-[25px]"><img src="./utiles/img/front/flecha.svg" alt="flecha"></a>
             </div>
             <h2 class="pb-[12px]">Recuperación de contraseña</h2>
-            <form action="index.php?ctl=trylog" method="post">
+            <form action="#" method="post">
                 <input type="email" name="mail" id="mail" placeholder="Email" class="w-[100%] mb-[17px] rounded-[7px] pl-[21px] py-[16px] bg-form">
                 <input type="submit" value="Recuperar" class="block w-[100%] bg-rosa px-[80px] py-[10px] rounded-[7px]">
             </form>

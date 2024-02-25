@@ -12,7 +12,7 @@
         <!-- Primera sección -->
         <section class="container max-w-screen-xl mt-[16px] pt-[30px]">
             <h1 class="text-[30px]">Cartelera</h1>
-            <button class="text-[18px] mt-[15px] mr-[27px] pt-[8px] pb-[11px] pr-[15px] pl-[19px] bg-gray rounded-[6.27px]"><a href="#">En cartelera</a></button>
+            <button class="text-[18px] mt-[15px] mr-[27px] pt-[8px] pb-[11px] pr-[15px] pl-[19px] bg-gray rounded-[6.27px]"><a href="buscador">En cartelera</a></button>
             <button class="text-[18px] mr-[27px] pt-[8px] pb-[11px] pr-[15px] pl-[19px] bg-gray2 rounded-[6.27px]"><a href="#">Próximamente</a></button>
         </section>
         <!-- Segunda sección -->

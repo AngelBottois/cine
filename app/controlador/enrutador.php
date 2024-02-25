@@ -2,13 +2,14 @@
 // include_once "./app/controlador/viewcontroller.php";
 // include_once "./app/controlador/formulariocontroller.php";
 // include_once "./app/controlador/admincontroller.php";
-
+include_once "./app/controlador/qrcontroller.php";
 session_set_cookie_params(0, '');
 session_start();
 // Permanencia de campos correctos en los formularios
 $iniciado = $_SESSION['loggeado'] ?? false;
 $iniciado == true ? $_SESSION['dir'] = "inicio" : $_SESSION['dir'] = "login" ;
 $_SESSION['resguardo'] = [];
+$_SESSION['qrs'] = [];
 $_SESSION['resguardo']['nombre'] = "";
 $_SESSION['resguardo']['apellidos'] = "";
 $_SESSION['resguardo']['email'] = "";
@@ -64,6 +65,15 @@ switch($accion){
     case 'sesion':
         AdminController::obtenerSesion();
         AdminController::obtenerSalas();
+        break;
+    case 'factura':
+        if(!isset($_POST['butaca'])){
+            $accion="sesion";
+            $_SESSION['error'] = "Debes escoger al menos una butaca";
+        }else{
+            $_SESSION['error'] = "";
+            qrController::guardar();
+        }
         break;
 }
 // Controlador de vistas

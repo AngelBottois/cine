@@ -626,6 +626,10 @@ h2{
   margin-bottom: 28px;
 }
 
+.mb-\[30px\] {
+  margin-bottom: 30px;
+}
+
 .mb-\[36px\] {
   margin-bottom: 36px;
 }
@@ -722,6 +726,26 @@ h2{
   margin-top: 84.74px;
 }
 
+.mb-\[110px\] {
+  margin-bottom: 110px;
+}
+
+.mb-\[130px\] {
+  margin-bottom: 130px;
+}
+
+.mb-\[120px\] {
+  margin-bottom: 120px;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+
 .block {
   display: block;
 }
@@ -790,6 +814,10 @@ h2{
   height: 780px;
 }
 
+.min-h-\[655px\] {
+  min-height: 655px;
+}
+
 .w-\[100\%\] {
   width: 100%;
 }
@@ -812,6 +840,10 @@ h2{
 
 .w-\[30px\] {
   width: 30px;
+}
+
+.w-\[320px\] {
+  width: 320px;
 }
 
 .w-\[323px\] {
@@ -1088,6 +1120,11 @@ h2{
   background-color: rgb(255 44 120 / var(--tw-bg-opacity));
 }
 
+.bg-slate-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(51 65 85 / var(--tw-bg-opacity));
+}
+
 .bg-butaca {
   background-image: url('../../img/front/butaca.svg');
 }
@@ -1124,6 +1161,10 @@ h2{
 
 .bg-no-repeat {
   background-repeat: no-repeat;
+}
+
+.p-\[10px\] {
+  padding: 10px;
 }
 
 .px-\[100px\] {
@@ -1364,8 +1405,20 @@ h2{
   font-size: 12px;
 }
 
+.text-\[14px\] {
+  font-size: 14px;
+}
+
 .text-\[18px\] {
   font-size: 18px;
+}
+
+.text-\[20px\] {
+  font-size: 20px;
+}
+
+.text-\[22px\] {
+  font-size: 22px;
 }
 
 .text-\[24px\] {
@@ -1374,6 +1427,10 @@ h2{
 
 .text-\[30px\] {
   font-size: 30px;
+}
+
+.text-\[60px\] {
+  font-size: 60px;
 }
 
 .font-semibold {
@@ -1397,6 +1454,11 @@ h2{
 .text-yellow-600 {
   --tw-text-opacity: 1;
   color: rgb(202 138 4 / var(--tw-text-opacity));
+}
+
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
 .backdrop-blur-\[10px\] {

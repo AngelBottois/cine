@@ -11,8 +11,8 @@
         <a href="inicio" class="w-[100px]"><img src="./utiles/img/front/logo.svg" alt="logo"></a>
     </header>
     <main class="container max-w-screen-2xl h-[665px] pt-[47px] pb-[51px] px-[500px] bg-fondoImg">
-        <div class="container h-[592px] px-[100px] pt-[70px] pb-[50px] bg-blur backdrop-blur-[10px] rounded-[15px]">
-            <div class="">
+        <div class="container h-[592px] px-[100px] pt-[30px] pb-[50px] bg-blur backdrop-blur-[10px] rounded-[15px]">
+            <div>
                 <a href="login" class="block w-[25px]"><img src="./utiles/img/front/flecha.svg" alt="flecha"></a>
             </div>
             <h2 class="pb-[12px]">Registro</h2>
@@ -24,9 +24,10 @@
                 <input type="password" name="pass" id="pass" placeholder="Password" class="w-[100%] mb-[14px] rounded-[5px] pl-[21px] py-[16px] bg-form">
                 <div class="container flex justify-end text-[10px] mb-[14px]">
                     <input type="checkbox" name="terminos" id="terminos" class="mr-[3px]">
-                    <label for="terminos">He leido y acepto la <a href="#"><u>política de privacidad</u></a></label>
+                    <label for="terminos" class="text-[14px]">He leido y acepto la <a href="#"><u>política de privacidad</u></a></label>
                 </div>
-                <input type="submit" value="Entrar" class="block w-[100%] bg-rosa mb-[7px] px-[80px] py-[10px] rounded-[7px]">
+                <p class="text-center"><?= $_SESSION['error'] ?></p>
+                <input type="submit" value="Entrar" class="text-[22px] block w-[100%] bg-rosa mb-[7px] px-[80px] py-[10px] rounded-[7px]">
             </form>
         </div>
     </main>

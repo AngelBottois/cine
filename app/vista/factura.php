@@ -16,20 +16,36 @@
             <h1 class="text-[30px]">Pagar entradas</h1>   
         </section>
         <section class="grid grid-cols-1 justify-items-center">
-            <form action="index.php?ctl=genFac" method="post">
-            <div class="grid justify-items-start w-[500px] h-[655px] bg-pelis rounded-[13px] px-[35px] pt-[25px] pb-[40px] border-[2px] border-gray gap-y-[20px]">
+            <form action="#" method="post">
+            <div class="grid justify-items-start w-[500px] min-h-[655px] bg-pelis rounded-[13px] px-[35px] pt-[25px] pb-[40px] border-[2px] border-gray gap-y-[20px]">
                 <h2>Factura</h2>
                 <div class="w-[100%] border-b-[2px] border-gray">
-                    <p class="font-semibold">Numero de butacas</p>
+                    <p class="font-semibold">Numero de butacas:</p>
+                    <div class="flex justify-between">
+                        <div>
+                            <?php foreach($_POST['butaca'] as $butaca) {?>
+                                <p class="mb-[120px]"><?= $butaca ?></p>
+                            <?php } ?>
+                        </div>
+                        <div>
+                            <?php foreach($_SESSION['qrs'] as $qr) {?>
+                                <a class="p-[10px]" href="<?= $qr ?>" download><img src="<?= $qr ?>" alt="qr"></a>
+                            <?php } ?>
+                        </div>
+                    </div>
                 </div>
                 <div class="w-[100%] border-b-[2px] border-gray">
                     <p class="font-semibold">Película</p>
+                    <p><?= $_SESSION['admin']['pelicula']['nombre'] ?></p>
                 </div>
                 <div class="w-[100%] border-b-[2px] border-gray">
                     <p class="font-semibold">Precio total a pagar</p>
+                    <?php $resultado = $_SESSION['sesion'][0]['precio']*count($_POST['butaca']) ?>
+                    <p><?= $_SESSION['sesion'][0]['precio'] ?> X <?= count($_POST['butaca']) ?> = <?= $resultado ?>€</p>
                 </div>
                 <div>
                     <p class="font-semibold">Metodo de pago</p>
+                    <p>Tarjeta de Crédito</p>
                 </div>
                 <span>
                     <input type="checkbox" name="sendEm" id="sendEm">

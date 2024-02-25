@@ -51,8 +51,16 @@ class AdminController{
     public static function addSesion(){
         $correcto = false;
         if(isset($_REQUEST['fecha'])){
-
-            var_dump($_POST);
+            if($_REQUEST['fecha']!=''){
+                $precio = floatval($_REQUEST['precio']);
+                if($precio>0){
+                    Sesion::insertarSesion($_REQUEST['fecha'],$_REQUEST['hora'],$_REQUEST['sala'],$_REQUEST['precio'],$_REQUEST['pelicula']) ? $_SESSION['error'] = 'Pelicula agregada correctamente' : $_SESSION['error'] = 'Error, pelicula no existente';
+                }else{
+                    $_SESSION['error'] = 'El precio no puede ser negativo';
+                }
+            }else{
+                $_SESSION['error'] = 'Fecha incorrecta';
+            }
         }
         return $correcto;
     }
@@ -120,7 +128,7 @@ class AdminController{
     }
     // Obtener las salas de una sesion
     public static function obtenerSalas(){
-        $_SESSION['sala'] = Pelicula::obtenerSala($_REQUEST['s']);
+        $_SESSION['sala'] = Pelicula::obtenerSala($_REQUEST['s'],$_POST['sesiones']);
     }
     // Obtener las salas de una sesion
     public static function obtenerSesionesTotales(){

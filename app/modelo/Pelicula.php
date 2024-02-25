@@ -70,7 +70,7 @@ class Pelicula extends Conexion{
             $conexion = $instacia->conexion;
             $sesiones = [];
             // Consulta
-            $peticion = "SELECT sesionesc.id, sesionesc.fecha, sesionesc.hora, sesionesc.sala_id, sesionesc.precio, sesionesc.pelicula_id FROM sesionesc LEFT JOIN peliculasc ON sesionesc.pelicula_id=peliculasc.id WHERE pelicula_id=?";
+            $peticion = "SELECT sesionesc.id, sesionesc.fecha, horasc.hora, sesionesc.sala_id, sesionesc.precio, sesionesc.pelicula_id FROM sesionesc LEFT JOIN peliculasc ON sesionesc.pelicula_id=peliculasc.id LEFT JOIN horasc ON sesionesc.hora=horasc.id WHERE pelicula_id=?";
             $stmtInsert = $conexion->prepare($peticion);
             $stmtInsert->bindParam(1, $idPeli, PDO::PARAM_INT);
             // Ejecutar la consulta
@@ -85,15 +85,16 @@ class Pelicula extends Conexion{
         }
     }
     // Metodo para obtener la sala en funcion de la sesion
-    public static function obtenerSala($idSesion) {
+    public static function obtenerSala($idPeli,$fecha) {
         try {
             $instacia = new Pelicula();
             $conexion = $instacia->conexion;
             $salas = [];
             // Consulta
-            $peticion = "SELECT salasc.id, salasc.nombre FROM salasc LEFT JOIN sesionesc ON salasc.id=sesionesc.sala_id WHERE sesionesc.id=?";
+            $peticion = "SELECT sesionesc.fecha, sesionesc.pelicula_id, salasc.nombre FROM sesionesc LEFT JOIN salasc ON salasc.id=sesionesc.sala_id WHERE sesionesc.pelicula_id=? AND sesionesc.fecha=? GROUP BY salasc.nombre";
             $stmtInsert = $conexion->prepare($peticion);
-            $stmtInsert->bindParam(1, $idSesion, PDO::PARAM_INT);
+            $stmtInsert->bindParam(1, $idPeli, PDO::PARAM_INT);
+            $stmtInsert->bindParam(2, $fecha);
             // Ejecutar la consulta
             $stmtInsert->execute();
             while($sala = $stmtInsert->fetch(PDO::FETCH_ASSOC)){

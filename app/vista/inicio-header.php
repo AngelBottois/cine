@@ -1,6 +1,9 @@
 <header class="container max-w-screen-2xl grid grid-cols-2 mt-[14px]">
     <div class="container flex items-center">
-        <img src="./utiles/img/front/logo.svg" alt="logo" class="mr-[54.67px]">
+        <div class="mr-[54.67px]">
+            <a href="inicio" class="w-[100px]"><img src="./utiles/img/front/logo.svg" alt="logo"></a>
+        </div>
+
         <ul class="grid grid-cols-4 gap-[50px]">
             <li><a href="#" class="text-[18px]">Perfil</a></li>
             <li><a href="buscador" class="text-[18px]">Peliculas</a></li>
